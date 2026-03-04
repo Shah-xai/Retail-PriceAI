@@ -1,0 +1,30 @@
+Metadata-Version: 2.4
+Name: retail-priceai
+Version: 0.1.0
+Summary: Add your description here
+Home-page: https://github.com/Shah-xai/Retail-PriceAI
+Author: Shah
+Author-email: abedinn.shah@gmail.com
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: datasets>=4.6.1
+Requires-Dist: ensure>=1.0.4
+Requires-Dist: huggingface-hub>=1.5.0
+Requires-Dist: langchain>=1.2.10
+Requires-Dist: litellm>=1.82.0
+Requires-Dist: numpy>=2.4.2
+Requires-Dist: openai>=2.24.0
+Requires-Dist: pandas>=3.0.1
+Requires-Dist: pydantic>=2.12.5
+Requires-Dist: python-box>=7.4.1
+Requires-Dist: python-dotenv>=1.2.2
+Requires-Dist: pyyaml>=6.0.3
+Requires-Dist: transformers>=5.3.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: license-file
+
+# Retail-PriceAI
+Predicts the true market value of products using description-based features and NLP-regression

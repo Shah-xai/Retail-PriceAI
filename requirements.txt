@@ -1,0 +1,13 @@
+huggingface-hub
+pandas
+numpy
+transformers
+datasets
+python-dotenv
+python-box
+PyYAML
+pydantic
+langchain
+openai
+litellm
+ensure
