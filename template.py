@@ -7,12 +7,13 @@ logging.basicConfig(
                     format="%(asctime)s - %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S"
 )
-project_name="NLP-regression"
+project_name="NLP_regression"
 list_of_files=[
     ".github/workflows/.gitkeep",
     f"src/{project_name}/__init__.py",
     f"src/{project_name}/components/__init__.py",
     f"src/{project_name}/entity/__init__.py",
+    f"src/{project_name}/entity/config_entity.py",
     f"src/{project_name}/constants/__init__.py",
     f"src/{project_name}/logging/__init__.py",
     f"src/{project_name}/pipeline/__init__.py",
