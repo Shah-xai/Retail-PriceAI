@@ -3,3 +3,6 @@ artificats_root: "artifacts"
 data_ingestion:
   root_dir: "artifacts/data_ingestion/raw_data"
   source_URL: "ed-donner/items_raw_lite"
+data_transformation:
+  root_dir: "artifacts/data_transformation"
+  raw_data_dir: "artifacts/data_ingestion/raw_data"
