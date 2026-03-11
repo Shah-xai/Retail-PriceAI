@@ -12,6 +12,11 @@ Return ONLY valid JSON with this schema:
  "description": "1 sentence product description",
  "details": "1 sentence key features"
 }
-Ensure the JSON is syntactically valid.
-Do not add explanations or markdown.
+Rules:
+- Return only the object
+- No markdown
+- No prose
+- No comments
+- No extra keys
+- Never omit braces
 '''
