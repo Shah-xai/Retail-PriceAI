@@ -1,3 +1,5 @@
+import re
+
 from pydantic import BaseModel
 from pathlib import Path
 from NLP_regression.entity.config_entity import DataTransformationConfig
@@ -5,16 +7,10 @@ from NLP_regression import logger
 import json
 from openai import OpenAI
 from NLP_regression.constants import SYSTEM_PROMPT
-
-class StructuredData(BaseModel):
-    title: str
-    category: str
-    brand: str
-    description: str
-    details: str
+import time
 
 class FinalRecord(BaseModel):
-    summary: StructuredData
+    summary: str
     weight: float|None=None
     price: float
 
@@ -28,7 +24,7 @@ class DataTransformation:
             api_key=api_key
         )
         self.model_name = model_name
-    def curate_data(self,text: str) -> StructuredData:
+    def curate_data(self,text: str) -> dict:
         response = self.client.chat.completions.create(
             model=self.model_name,
             messages=[
@@ -36,21 +32,19 @@ class DataTransformation:
                 {"role": "user", "content": text}
             ],
             max_tokens=500,
-            temperature=0.01,
-            extra_body={"format": StructuredData.model_json_schema()}
+            temperature=0.01,   
         )
         try:
             content = response.choices[0].message.content
             content = content.strip().removeprefix("```json").removesuffix("```").strip()
-            data_dict = json.loads(content)
-            structured_data = StructuredData.model_validate(data_dict)
-            return structured_data
+        
+            return content
         except Exception as e:
             logger.error(f"Error parsing response: {e}")
             raise ValueError("Failed to parse structured data from the model response.")
     
     @staticmethod
-    def _load_split_data(file_split_path: Path) -> list[dict]:
+    def _load_split_data(file_split_path: Path) -> dict:
         with  file_split_path.open("r", encoding="utf-8") as f:
             return json.load(f)
     @staticmethod
@@ -75,6 +69,7 @@ class DataTransformation:
             
             data = self._load_split_data(file_split_path)
             curated_data = []
+            start_time = time.time()
             for item in data:
                 try:
                     structured_item = self.curate_data(item["full"])
@@ -87,6 +82,8 @@ class DataTransformation:
                 except Exception as e:
                     logger.error(f"Error curating item: {e}")
 
+            end_time = time.time()
+            logger.info(f"Time taken for {split} split: {end_time - start_time} seconds")
             
             output_path = output_dir / f"{split}_transformed.jsonl"
             self._save_split_data(curated_data, output_path)
